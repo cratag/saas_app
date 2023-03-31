@@ -1,6 +1,7 @@
 <%- model_class = Project -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h3><%= @project.title %></h3>
+  <h3><small>Organization - <%= tenant_name @project.tenant_id%></small></h3>
 </div>
 
 <dl class="dl-horizontal">
@@ -11,11 +12,10 @@
   <dt><strong><%= model_class.human_attribute_name(:expected_completion_date) %>:</strong></dt>
   <dd><%= @project.expected_completion_date %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tenant_id) %>:</strong></dt>
-  <dd><%= @project.tenant.organization ? @project.tenant.organization : @project.tenant_id %></dd>
+  <dd><%= @project.tenant.name ? @project.tenant.name : @project.tenant_id %></dd>
 </dl>
 
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              root_path, :class => 'btn btn-default'  %>
+<%= link_to '< Back to Organization Home', root_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_tenant_project_path(@project, tenant_id: @tenant.id), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

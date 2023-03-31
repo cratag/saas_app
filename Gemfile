@@ -32,7 +32,6 @@ gem 'jquery-rails'
 
 gem 'devise'
 gem 'devise-bootstrap-views'
-
 gem 'twitter-bootstrap-rails'
 
 group :development, :test do

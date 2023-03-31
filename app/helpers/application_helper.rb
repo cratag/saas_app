@@ -29,4 +29,9 @@ module ApplicationHelper
     end
     flash_messages.join("\n").html_safe
   end
+
+  # Why is this here and not in Tenant model?
+  def tenant_name(tenant_id)
+    Tenant.find(tenant_id).name
+  end
 end

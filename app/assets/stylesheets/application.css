@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+.datepicker-dropdown {
+  top: 40% !important;
+  left: 25% !important;
+}
