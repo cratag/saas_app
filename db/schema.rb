@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_31_144528) do
+ActiveRecord::Schema.define(version: 2023_04_03_191456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "artifacts", force: :cascade do |t|
+    t.string "name"
+    t.string "key"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_artifacts_on_project_id"
+  end
 
   create_table "plans", force: :cascade do |t|
     t.bigint "tenant_id", null: false
@@ -56,6 +65,7 @@ ActiveRecord::Schema.define(version: 2023_03_31_144528) do
     t.index ["tenant_id"], name: "index_users_on_tenant_id"
   end
 
+  add_foreign_key "artifacts", "projects"
   add_foreign_key "plans", "tenants"
   add_foreign_key "projects", "tenants"
   add_foreign_key "tenants", "users"

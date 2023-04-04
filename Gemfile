@@ -29,14 +29,16 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'jquery-rails'
-
 gem 'devise'
 gem 'devise-bootstrap-views'
 gem 'twitter-bootstrap-rails'
+gem 'aws-sdk-s3'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'dotenv'
 end
 
 group :development do
