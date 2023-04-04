@@ -18,7 +18,10 @@ class Artifact < ApplicationRecord
 
   def upload_to_s3
     upload = S3Client.new.upload_file(self)
-    # Update record URL
-    self.key = upload
+    if upload
+      self.key = upload
+    else
+      binding.pry
+    end
   end
 end

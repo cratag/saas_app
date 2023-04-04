@@ -4,8 +4,8 @@ require 'erb'
 class S3Client
   def initialize
     @client = Aws::S3::Client.new(
-      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+      access_key_id: Rails.application.credentials.aws_access_key_id,
+      secret_access_key: Rails.application.credentials.aws_secret_access_key,
       region: "us-east-1"
     )
   end
@@ -21,7 +21,8 @@ class S3Client
       )
       "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/#{artifact.project.tenant.organization}/#{artifact.name}#{file_extension}"
     rescue => exception
-      exception
+      puts exception
+      return nil
     end
   end
 end
