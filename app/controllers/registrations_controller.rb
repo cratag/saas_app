@@ -8,6 +8,6 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, tenants_attributes: [:id, :plan])
+    params.require(:user).permit(:email, :password, :password_confirmation, tenants_attributes: [:id, :plan, :plan_id])
   end
 end

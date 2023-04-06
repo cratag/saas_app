@@ -22,6 +22,7 @@ class S3Client
         body: artifact.upload.original_filename,
         acl: 'public-read'
       )
+
       "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/#{artifact.project.tenant.organization}/#{artifact.name}#{file_extension}"
     rescue => exception
       puts "# Error uploading artifact #{artifact.original_filename} to AWS S3: #{exception}"

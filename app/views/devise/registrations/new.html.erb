@@ -1,6 +1,10 @@
+<script language="JavaScript">
+  Stripe.setPublishableKey("<%= ENV['STRIPE_TEST_PUBLISHABLE_KEY'] %>");
+</script>
+
 <h1><%= t('.sign_up') %></h1>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { role: 'form', class: 'cc_form' }) do |f| %>
   <%= bootstrap_devise_error_messages! %>
 
   <div class="form-group">
@@ -23,16 +27,13 @@
   </div>
 
   <%= f.fields_for :tenants, resource.tenants.first do |tenant_form| %>
-    <div class="form-group col-md-6 no-right padding">
+    <div class="form-group col-md-6 no-left-padding">
       <%= tenant_form.label :plan %>
       <%= tenant_form.select :plan_id, options_for_select(Plan.options, params[:plan]), {}, required: true, class: "form-control" %>
     </div>
+
+    <div class="row col-md-12">
+      <%= f.submit t('.sign_up'), class: 'btn btn-primary' %>
+    </div>
   <% end %>
-
-
-  <div class="form-group">
-    <%= f.submit t('.sign_up'), class: 'btn btn-primary' %>
-  </div>
 <% end %>
-
-<%= render 'devise/shared/links' %>

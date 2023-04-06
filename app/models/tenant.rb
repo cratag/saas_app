@@ -2,9 +2,10 @@ class Tenant < ApplicationRecord
   belongs_to :user
   has_one :plan
   has_many :projects, dependent: :destroy
+  has_one :payment
+  accepts_nested_attributes_for :payment
 
   attr_accessor :plan_id
-
   before_validation :set_plan_from_plan_id
 
   def can_create_projects?
