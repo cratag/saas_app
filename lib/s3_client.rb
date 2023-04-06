@@ -6,8 +6,8 @@ AWS_REGION = "us-east-1"
 class S3Client
   def initialize
     @client = Aws::S3::Client.new(
-      access_key_id: Rails.application.credentials.aws_access_key_id,
-      secret_access_key: Rails.application.credentials.aws_secret_access_key,
+      access_key_id: Rails.application.credentials.aws[:access_key_id],
+      secret_access_key: Rails.application.credentials.aws[:secret_access_key],
       region: AWS_REGION
     )
   end
