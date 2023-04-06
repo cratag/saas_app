@@ -29,7 +29,7 @@
   <%= f.fields_for :tenants, resource.tenants.first do |tenant_form| %>
     <div class="form-group col-md-6 no-left-padding">
       <%= tenant_form.label :plan %>
-      <%= tenant_form.select :plan_id, options_for_select(Plan.options, params[:plan]), {}, required: true, class: "form-control" %>
+      <%= tenant_form.select :plan_id, options_for_select(Plan.options, plan_id_from_param(params[:plan])), {}, required: true, class: "form-control" %>
     </div>
 
     <div class="row col-md-12">
