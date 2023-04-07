@@ -18,15 +18,20 @@ class S3Client
       file_extension = artifact.upload.original_filename.slice(artifact.upload.original_filename.index('.')..-1)
       @client.put_object(
         bucket: ENV['S3_BUCKET_NAME'],
-        key: "#{artifact.project.tenant.organization}/#{artifact.name}#{file_extension}",
+        key: "#{organization_name(artifact)}/#{artifact.name}#{file_extension}",
         body: artifact.upload.original_filename,
         acl: 'public-read'
       )
 
-      "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/#{artifact.project.tenant.organization}/#{artifact.name}#{file_extension}"
+      "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/#{organization_name(artifact)}/#{artifact.name}#{file_extension}"
     rescue => exception
       puts "# Error uploading artifact #{artifact.original_filename} to AWS S3: #{exception}"
       return nil
     end
+  end
+
+  private
+  def organization_name(artifact)
+    artifact.project.tenant.name
   end
 end

@@ -1,5 +1,6 @@
 <% if current_user %>
-<h3 class="pull-right"><small>Organization:</small> <strong><%= tenant_name(@tenant.id)%></strong></h3>
+<h3 class="pull-right" style="margin-left: 1rem"><small>Organization:</small> <strong><%= tenant_name(@tenant.id)%></strong></h3>
+<h3 class="pull-right"><small>Plan: <strong><%= @tenant.plan.plan_type == 2 ? "Premium" : "Free" %></strong></small></h3>
 <%= render 'projects/list' %>
 <% else %>
 <div class="jumbotron">

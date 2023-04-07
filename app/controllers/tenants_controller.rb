@@ -31,6 +31,7 @@ class TenantsController < ApplicationController
       end
     end
   end
+
   private
   def set_tenant
     @tenant = Tenant.find(current_user.tenants.first.id)

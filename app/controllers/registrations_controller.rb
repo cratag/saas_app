@@ -5,6 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  # Override default Devise create behaviour.
   def create
     build_resource(sign_up_params)
 
@@ -12,7 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
-        create_payment_record(resource)
+        create_payment_record(resource) # Create payment record for User.
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
         respond_with resource, location: after_sign_up_path_for(resource)
@@ -42,7 +43,8 @@ class RegistrationsController < Devise::RegistrationsController
       payment.token = params[:payment][:token]
       payment.save!
     rescue Exception => e
-      redirect_to root_path, notice: e
+      puts e
+      redirect_to root_path
     end
   end
 end
