@@ -30,6 +30,11 @@ module ApplicationHelper
     flash_messages.join("\n").html_safe
   end
 
+  def class_name_for_tenant_form(tenant)
+    return "cc_form" if tenant.payment.blank?
+    ""
+  end
+
   # Why is this here and not in Tenant model?
   def tenant_name(tenant_id)
     Tenant.find(tenant_id).name

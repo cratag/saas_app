@@ -19,7 +19,6 @@ $(document).ready(function () {
   var handlePlanChange = function (plan_type, form) {
     console.log("Plan change", "Plan type: ", plan_type);
     var $form = $(form);
-
     if (plan_type == undefined) {
       plan_type = $('#tenant_plan :selected').val();
     } else if (plan_type == 2 /* Premium */) {

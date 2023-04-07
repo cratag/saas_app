@@ -1,3 +1,5 @@
+<!-- Form does not show up -->
+
 <script language="JavaScript">
   Stripe.setPublishableKey("<%= Rails.application.credentials.stripe[:publishable_key] %>");
 </script>
@@ -35,7 +37,7 @@
     <br>
 
     <div class="form-group col-md-6 no-left-padding">
-      <%= tenant_form.label :plan %>
+      <%= tenant_form.label :plan_id %>
       <%= tenant_form.select :plan_id, options_for_select(Plan.options, plan_id_from_param(params[:plan])), {}, required: true, class: "form-control", id: "tenant_plan" %>
     </div>
 
