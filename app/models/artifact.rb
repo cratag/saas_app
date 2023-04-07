@@ -20,8 +20,9 @@ class Artifact < ApplicationRecord
     upload = S3Client.new.upload_file(self)
     if upload
       self.key = upload
+      self.key
     else
-      binding.pry
+      nil
     end
   end
 end

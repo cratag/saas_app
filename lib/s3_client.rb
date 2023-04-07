@@ -1,9 +1,9 @@
 require 'aws-sdk-s3'
 require 'erb'
 
-AWS_REGION = "us-east-1"
-
 class S3Client
+  AWS_REGION = "us-east-1"
+
   def initialize
     @client = Aws::S3::Client.new(
       access_key_id: Rails.application.credentials.aws[:access_key_id],
@@ -13,25 +13,41 @@ class S3Client
   end
 
   def upload_file(artifact)
+    @artifact = artifact
     # Uploads a file to S3 bucket, and returns the URL
     begin
-      file_extension = artifact.upload.original_filename.slice(artifact.upload.original_filename.index('.')..-1)
       @client.put_object(
-        bucket: ENV['S3_BUCKET_NAME'],
-        key: "#{organization_name(artifact)}/#{artifact.name}#{file_extension}",
-        body: artifact.upload.original_filename,
+        bucket: bucket,
+        key: key,
+        body: file_name,
         acl: 'public-read'
       )
 
-      "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/#{organization_name(artifact)}/#{artifact.name}#{file_extension}"
+      "https://#{bucket}.s3.amazonaws.com/#{key}"
     rescue => exception
-      puts "# Error uploading artifact #{artifact.original_filename} to AWS S3: #{exception}"
+      puts "# Error uploading artifact #{file_name} to AWS S3: #{exception}"
       return nil
     end
   end
 
   private
-  def organization_name(artifact)
-    artifact.project.tenant.name
+  def bucket
+    ENV['S3_BUCKET_NAME']
+  end
+
+  def file_extension
+    file_name.slice(file_name.index('.')..-1)
+  end
+
+  def file_name
+    @artifact.upload.original_filename
+  end
+
+  def key
+    "#{organization_name}/#{@artifact.name}#{file_extension}"
+  end
+
+  def organization_name
+    @artifact.project.tenant.name
   end
 end
